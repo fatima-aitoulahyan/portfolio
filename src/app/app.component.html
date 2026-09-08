@@ -83,11 +83,15 @@
     <div class="projects__grid">
         <article class="project-card" *ngFor="let p of projects">
             <!-- Zone Média -->
+            <!-- Zone Média -->
             <div class="project-card__media">
-                <video *ngIf="p.videoUrl" controls preload="metadata" [poster]="p.poster || ''">
-                    <source [src]="p.videoUrl" type="video/mp4">
-                    Votre navigateur ne supporte pas la lecture de vidéos.
-                </video>
+                <iframe *ngIf="p.videoUrl"
+                        class="project-card__video"
+                        [src]="getSafeVideoUrl(p.videoUrl)"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen
+                        frameborder="0">
+                </iframe>
 
                 <ng-container *ngIf="!p.videoUrl && p.images && p.images.length > 0">
                     <img [src]="p.images[p.currentImageIndex || 0]"
@@ -99,8 +103,8 @@
                     <button class="gallery-btn next" (click)="nextImage(p, $event)" *ngIf="p.images.length > 1">&#10095;</button>
 
                     <span class="image-counter" *ngIf="p.images.length > 1">
-                        {{ (p.currentImageIndex || 0) + 1 }} / {{ p.images.length }}
-                    </span>
+            {{ (p.currentImageIndex || 0) + 1 }} / {{ p.images.length }}
+        </span>
                 </ng-container>
 
                 <div class="project-card__overlay-badge" *ngIf="p.status">
@@ -108,7 +112,6 @@
                     {{ p.status[lang()] }}
                 </div>
             </div>
-
             <!-- Corps de la carte -->
             <div class="project-card__body">
                 <div class="project-card__meta-top">
@@ -162,10 +165,12 @@
 
         <div class="modal-body-scroll">
             <div class="modal-media-full" *ngIf="selectedProject.videoUrl">
-                <video controls preload="metadata" [poster]="selectedProject.poster || ''">
-                    <source [src]="selectedProject.videoUrl" type="video/mp4">
-                    Votre navigateur ne supporte pas la lecture de vidéos.
-                </video>
+                <iframe class="modal-video"
+                        [src]="getSafeVideoUrl(selectedProject.videoUrl)"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen
+                        frameborder="0">
+                </iframe>
             </div>
 
             <div class="modal-gallery" *ngIf="selectedProject.images && selectedProject.images.length > 0">

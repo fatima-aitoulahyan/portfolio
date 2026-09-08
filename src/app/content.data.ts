@@ -56,8 +56,8 @@ export const PROJECTS: Project[] = [
       fr: 'MVP complet et opérationnel intégrant la gestion des devis, factures, trésorerie, notifications push et calculs de scoring financier.',
       en: 'Complete and operational MVP integrating quotation management, invoicing, cash flow, push notifications, and financial scoring calculations.'
     },
-    videoUrl: 'https://docs.google.com/uc?export=download&id=1s8de-Gl4ln9HTCjEAW29metGiFklhfQX',
-    currentImageIndex: 0,
+// Projet EXP-01
+    videoUrl: 'https://drive.google.com/file/d/1s8de-Gl4ln9HTCjEAW29metGiFklhfQX/preview',    currentImageIndex: 0,
     accomplishments: {
       fr: [
         'Développement de l\'application mobile multiplateforme avec Flutter (iOS & Android) et du tableau de bord web avec React.js.',
@@ -154,8 +154,8 @@ export const PROJECTS: Project[] = [
       fr: 'Application mobile fluide connectée à un backend Django et une base MongoDB pour le suivi des cultures.',
       en: 'Smooth mobile application connected to a Django backend and MongoDB database for crop monitoring.'
     },
-    videoUrl: 'https://docs.google.com/uc?export=download&id=1ed_j5BMkBQFUAv3IzHZXHxfTIzmpuO_2',
-    githubUrl:'https://github.com/fatima-aitoulahyan/smart-agri-app-frontend',
+// Projet AI-01
+    videoUrl: 'https://drive.google.com/file/d/1ed_j5BMkBQFUAv3IzHZXHxfTIzmpuO_2/preview',    githubUrl:'https://github.com/fatima-aitoulahyan/smart-agri-app-frontend',
     currentImageIndex: 0,
     stack: ['Flutter', 'Django', 'TensorFlow', 'CNN', 'MongoDB', 'Python']
   }

@@ -1,5 +1,6 @@
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PROJECTS, SKILLS, Certification, UI_TEXT, Lang, CERTIFICATIONS } from './content.data';
 
 @Component({
@@ -14,6 +15,8 @@ export class AppComponent {
   projects = PROJECTS;
   skills = SKILLS;
   certifications: Certification[] = CERTIFICATIONS;
+
+  constructor(private sanitizer: DomSanitizer) {}
 
   // Gestion de la modale des projets
   selectedProject: any = null;
@@ -63,6 +66,7 @@ export class AppComponent {
   closeImageModal() {
     this.selectedImage = null;
   }
+
   isMobileMenuOpen = false;
 
   toggleMobileMenu() {
@@ -71,5 +75,10 @@ export class AppComponent {
 
   closeMobileMenu() {
     this.isMobileMenuOpen = false;
+  }
+
+  // Convertit une URL Google Drive "/preview" en URL sûre pour l'iframe
+  getSafeVideoUrl(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
