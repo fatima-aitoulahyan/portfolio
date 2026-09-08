@@ -57,7 +57,7 @@ export const PROJECTS: Project[] = [
       en: 'Complete and operational MVP integrating quotation management, invoicing, cash flow, push notifications, and financial scoring calculations.'
     },
 // Projet EXP-01
-    videoUrl: 'src/assets/videos/TPEmobile.mp4',    currentImageIndex: 0,
+    videoUrl: 'assets/videos/TPEmobile.mp4',    currentImageIndex: 0,
     accomplishments: {
       fr: [
         'Développement de l\'application mobile multiplateforme avec Flutter (iOS & Android) et du tableau de bord web avec React.js.',
@@ -155,7 +155,8 @@ export const PROJECTS: Project[] = [
       en: 'Smooth mobile application connected to a Django backend and MongoDB database for crop monitoring.'
     },
 // Projet AI-01
-    videoUrl: 'src/assets/videos/SmartAgri.mp4',    githubUrl:'https://github.com/fatima-aitoulahyan/smart-agri-app-frontend',
+    videoUrl: 'assets/videos/SmartAgri.mp4',
+    githubUrl:'https://github.com/fatima-aitoulahyan/smart-agri-app-frontend',
     currentImageIndex: 0,
     stack: ['Flutter', 'Django', 'TensorFlow', 'CNN', 'MongoDB', 'Python']
   }
