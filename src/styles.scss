@@ -1,0 +1,35 @@
+:root {
+  --ink: #0f1b2d;      // fond, bleu plan technique
+  --ink-deep: #0a141f; // fond sections alternées
+  --paper: #eef0e6;    // texte principal, "papier" de plan
+  --line: #3c5875;     // lignes de schéma, bordures
+  --signal: #e8a33d;   // accent ambre — signal/CTA
+  --slate: #8fa3b8;    // texte secondaire
+
+  --display: 'Space Grotesk', sans-serif;
+  --body: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--body);
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}

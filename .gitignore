@@ -1,0 +1,41 @@
+# See http://help.github.com/ignore-files/ for more عنها
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Dependencies
+/node_modules
+.pnpm-debug.log*
+
+# IDEs and editors
+.vscode/*
+!.vscode/extensions.json
+.idea
+.project
+.classpath
+.cproject
+.settings
+*.suo
+*.ntvs
+*.njsproj
+*.sln
+*.swp
+
+# Testing
+/coverage
+
+# Angular cache
+/.angular/cache
+
+# Environment variables & secrets
+.env
+
+# System files
+.DS_Store
+Thumbs.db
+*.log
+
+src/assets/videos/
