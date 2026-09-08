@@ -63,4 +63,13 @@ export class AppComponent {
   closeImageModal() {
     this.selectedImage = null;
   }
+  isMobileMenuOpen = false;
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  closeMobileMenu() {
+    this.isMobileMenuOpen = false;
+  }
 }

@@ -4,13 +4,20 @@
         <span class="topbar__id">AITOULAHYAN.DEV</span>
     </div>
     <div class="topbar__actions">
-        <nav class="topbar__nav">
-            <a href="#about">Bio</a>
-            <a href="#projects">Projets</a>
-            <a href="#skills">Compétences</a>
-            <a href="#education">Formation</a>
-            <a href="#certifications">Certificats</a>
-            <a href="#contact">Contact</a>
+        <!-- Bouton Menu Hamburger pour mobile -->
+        <button class="mobile-menu-btn" (click)="toggleMobileMenu()" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="topbar__nav" [class.is-open]="isMobileMenuOpen">
+            <a href="#about" (click)="closeMobileMenu()">{{ lang() === 'fr' ? 'Bio' : 'About' }}</a>
+            <a href="#projects" (click)="closeMobileMenu()">{{ lang() === 'fr' ? 'Projets' : 'Projects' }}</a>
+            <a href="#skills" (click)="closeMobileMenu()">{{ lang() === 'fr' ? 'Compétences' : 'Skills' }}</a>
+            <a href="#education" (click)="closeMobileMenu()">{{ lang() === 'fr' ? 'Formation' : 'Education' }}</a>
+            <a href="#certifications" (click)="closeMobileMenu()">{{ lang() === 'fr' ? 'Certificats' : 'Certificates' }}</a>
+            <a href="#contact" (click)="closeMobileMenu()">Contact</a>
         </nav>
 
         <button class="lang-toggle" (click)="toggleLang()">
@@ -55,8 +62,8 @@
 <!-- ABOUT -->
 <section id="about" class="about">
     <div class="section-header">
-        <span class="eyebrow">01 / À PROPOS</span>
-        <h2 class="section-title">Ingénierie, Cloud & IA</h2>
+        <span class="eyebrow">01 / {{ lang() === 'fr' ? 'À PROPOS' : 'ABOUT' }}</span>
+        <h2 class="section-title">{{ lang() === 'fr' ? 'Ingénierie, Cloud & IA' : 'Engineering, Cloud & AI' }}</h2>
     </div>
     <p class="about__text">{{ text().about }}</p>
 </section>
@@ -66,34 +73,31 @@
     <div class="section-header">
         <div class="header-badge">
             <span class="pulse-dot"></span>
-            <span>Réalisations Récentes</span>
+            <span>{{ lang() === 'fr' ? 'Réalisations Récentes' : 'Recent Works' }}</span>
         </div>
         <span class="eyebrow">02 / PORTFOLIO</span>
         <h2 class="section-title">{{ text().projectsTitle }}</h2>
-        <p class="section-subtitle">Découvrez une sélection de mes projets les plus impactants, alliant performance et architecture moderne.</p>
+        <p class="section-subtitle">{{ lang() === 'fr' ? 'Découvrez une sélection de mes projets les plus impactants, alliant performance et architecture moderne.' : 'Discover a selection of my most impactful projects, combining performance and modern architecture.' }}</p>
     </div>
 
     <div class="projects__grid">
         <article class="project-card" *ngFor="let p of projects">
-            <!-- Zone Média (Vidéo ou Carrousel d'images avec flèches) -->
+            <!-- Zone Média -->
             <div class="project-card__media">
                 <video *ngIf="p.videoUrl" controls preload="metadata" [poster]="p.poster || ''">
                     <source [src]="p.videoUrl" type="video/mp4">
                     Votre navigateur ne supporte pas la lecture de vidéos.
                 </video>
 
-                <!-- Affichage de l'image courante si pas de vidéo et images présentes -->
                 <ng-container *ngIf="!p.videoUrl && p.images && p.images.length > 0">
                     <img [src]="p.images[p.currentImageIndex || 0]"
                          [alt]="p.title"
                          class="project-card__img clickable-image"
                          (click)="openImageModal(p.images[p.currentImageIndex || 0])" />
 
-                    <!-- Boutons de navigation du carrousel (si plusieurs images) -->
                     <button class="gallery-btn prev" (click)="prevImage(p, $event)" *ngIf="p.images.length > 1">&#10094;</button>
                     <button class="gallery-btn next" (click)="nextImage(p, $event)" *ngIf="p.images.length > 1">&#10095;</button>
 
-                    <!-- Indicateur de position (ex: 1/3) -->
                     <span class="image-counter" *ngIf="p.images.length > 1">
                         {{ (p.currentImageIndex || 0) + 1 }} / {{ p.images.length }}
                     </span>
@@ -105,7 +109,7 @@
                 </div>
             </div>
 
-            <!-- Corps de la carte épuré -->
+            <!-- Corps de la carte -->
             <div class="project-card__body">
                 <div class="project-card__meta-top">
                     <span class="project-card__id">{{ p.id }}</span>
@@ -115,9 +119,8 @@
                 <h3 class="project-card__title">{{ p.title }}</h3>
                 <p class="project-card__tagline">{{ p.tagline[lang()] }}</p>
 
-                <!-- Stack Technique en miniature -->
                 <div class="project-card__stack">
-                    <span class="stack-label">Technologies :</span>
+                    <span class="stack-label">{{ lang() === 'fr' ? 'Technologies :' : 'Technologies:' }}</span>
                     <div class="chips">
                         <span class="chip" *ngFor="let s of p.stack">
                             <span class="chip-dot"></span>{{ s }}
@@ -125,10 +128,9 @@
                     </div>
                 </div>
 
-                <!-- Actions de la carte (Détails + Lien GitHub) -->
                 <div class="project-card__actions-row">
                     <button class="btn-details" (click)="openProjectDetails(p)">
-                        Détails <span>→</span>
+                        {{ lang() === 'fr' ? 'Détails' : 'Details' }} <span>→</span>
                     </button>
                     <a *ngIf="p.githubUrl" [href]="p.githubUrl" target="_blank" rel="noopener" class="btn-github-icon" title="Voir sur GitHub">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
@@ -149,7 +151,7 @@
                 <div class="modal-header-actions">
                     <a *ngIf="selectedProject.githubUrl" [href]="selectedProject.githubUrl" target="_blank" rel="noopener" class="modal-github-link">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                        <span>Code Source GitHub</span>
+                        <span>{{ lang() === 'fr' ? 'Code Source GitHub' : 'GitHub Source Code' }}</span>
                     </a>
                     <span class="modal-location" *ngIf="selectedProject.location">📍 {{ selectedProject.location }}</span>
                 </div>
@@ -159,7 +161,6 @@
         </header>
 
         <div class="modal-body-scroll">
-            <!-- Vidéo dans la modale si disponible -->
             <div class="modal-media-full" *ngIf="selectedProject.videoUrl">
                 <video controls preload="metadata" [poster]="selectedProject.poster || ''">
                     <source [src]="selectedProject.videoUrl" type="video/mp4">
@@ -167,7 +168,6 @@
                 </video>
             </div>
 
-            <!-- Galerie d'images dans la modale si disponible -->
             <div class="modal-gallery" *ngIf="selectedProject.images && selectedProject.images.length > 0">
                 <div class="modal-gallery__grid">
                     <img *ngFor="let img of selectedProject.images; let i = index"
@@ -179,13 +179,13 @@
             </div>
 
             <div class="modal-section">
-                <h4 class="modal-section-title">Contexte & Défi</h4>
-                <p class="modal-text description-block"><strong>Problématique :</strong> {{ selectedProject.problem[lang()] }}</p>
-                <p class="modal-text description-block" *ngIf="selectedProject.challenge"><strong>Défi Technique :</strong> {{ selectedProject.challenge[lang()] }}</p>
+                <h4 class="modal-section-title">{{ lang() === 'fr' ? 'Contexte & Défi' : 'Context & Challenge' }}</h4>
+                <p class="modal-text description-block"><strong>{{ lang() === 'fr' ? 'Problématique :' : 'Problem:' }}</strong> {{ selectedProject.problem[lang()] }}</p>
+                <p class="modal-text description-block" *ngIf="selectedProject.challenge"><strong>{{ lang() === 'fr' ? 'Défi Technique :' : 'Technical Challenge:' }}</strong> {{ selectedProject.challenge[lang()] }}</p>
             </div>
 
             <div class="modal-section stack-section">
-                <h4 class="modal-section-title">Stack Technique Utilisé</h4>
+                <h4 class="modal-section-title">{{ lang() === 'fr' ? 'Stack Technique Utilisé' : 'Technical Stack Used' }}</h4>
                 <div class="chips large-chips">
                     <span class="chip" *ngFor="let s of selectedProject.stack">
                         <span class="chip-dot"></span>{{ s }}
@@ -194,8 +194,8 @@
             </div>
 
             <div class="modal-section accomplishments-section" *ngIf="selectedProject.accomplishments">
-                <h4 class="modal-section-title">Principales Réalisations & Rôle</h4>
-                <p class="modal-role" *ngIf="selectedProject.role"><strong>Rôle :</strong> {{ selectedProject.role[lang()] }}</p>
+                <h4 class="modal-section-title">{{ lang() === 'fr' ? 'Principales Réalisations & Rôle' : 'Key Accomplishments & Role' }}</h4>
+                <p class="modal-role" *ngIf="selectedProject.role"><strong>{{ lang() === 'fr' ? 'Rôle :' : 'Role:' }}</strong> {{ selectedProject.role[lang()] }}</p>
                 <ul class="modal-bullets">
                     <li *ngFor="let item of selectedProject.accomplishments[lang()]">{{ item }}</li>
                 </ul>
@@ -208,7 +208,7 @@
     </div>
 </div>
 
-<!-- MODALE D'AGRANDISSEMENT D'IMAGE (LIGHTBOX) -->
+<!-- MODALE D'AGRANDISSEMENT D'IMAGE -->
 <div class="image-modal-overlay" *ngIf="selectedImage" (click)="closeImageModal()">
     <div class="image-modal-content" (click)="$event.stopPropagation()">
         <button class="image-modal-close" (click)="closeImageModal()">&times;</button>
@@ -243,7 +243,7 @@
             </div>
         </div>
         <div class="skills__group">
-            <h3>Bases de Données</h3>
+            <h3>{{ lang() === 'fr' ? 'Bases de Données' : 'Databases' }}</h3>
             <div class="chips">
                 <span class="chip" *ngFor="let s of skills.databases">{{ s }}</span>
             </div>
@@ -256,7 +256,7 @@
             </div>
         </div>
         <div class="skills__group">
-            <h3>Outils & Méthodes</h3>
+            <h3>{{ lang() === 'fr' ? 'Outils & Méthodes' : 'Tools & Methods' }}</h3>
             <div class="chips">
                 <span class="chip" *ngFor="let s of skills.tools">{{ s }}</span>
             </div>
@@ -267,24 +267,24 @@
 <!-- EDUCATION -->
 <section id="education" class="education">
     <div class="section-header">
-        <span class="eyebrow">04 / FORMATION</span>
-        <h2 class="section-title">Parcours Académique</h2>
+        <span class="eyebrow">04 / {{ lang() === 'fr' ? 'FORMATION' : 'EDUCATION' }}</span>
+        <h2 class="section-title">{{ lang() === 'fr' ? 'Parcours Académique' : 'Academic Background' }}</h2>
     </div>
 
     <div class="timeline">
         <div class="timeline__item">
             <span class="timeline__date">2024 — 2027</span>
-            <h3 class="timeline__title">Cycle d'Ingénieur en Génie Logiciel et Systèmes Informatiques Distribués</h3>
+            <h3 class="timeline__title">{{ lang() === 'fr' ? 'Cycle d\'Ingénieur en Génie Logiciel et Systèmes Informatiques Distribués' : 'Software Engineering and Distributed Systems Engineering Cycle' }}</h3>
             <span class="timeline__place">ENSET Mohammedia</span>
         </div>
         <div class="timeline__item">
             <span class="timeline__date">2022 — 2024</span>
-            <h3 class="timeline__title">DEUG en Mathématiques et Informatique</h3>
+            <h3 class="timeline__title">{{ lang() === 'fr' ? 'DEUG en Mathématiques et Informatique' : 'DEUG in Mathematics and Computer Science' }}</h3>
             <span class="timeline__place">Université Ibn Zohr, Aït Melloul</span>
         </div>
         <div class="timeline__item">
             <span class="timeline__date">2021 — 2022</span>
-            <h3 class="timeline__title">Baccalauréat Sciences Mathématiques B</h3>
+            <h3 class="timeline__title">{{ lang() === 'fr' ? 'Baccalauréat Sciences Mathématiques B' : 'Mathematical Sciences B Baccalaureate' }}</h3>
             <span class="timeline__place">Lycée Al Massira Al Khadra, Tiznit</span>
         </div>
     </div>
@@ -293,8 +293,8 @@
 <!-- CERTIFICATES -->
 <section id="certifications" class="certifications">
     <div class="section-header">
-        <span class="eyebrow">05 / CERTIFICATS</span>
-        <h2 class="section-title">Certifications Officielles</h2>
+        <span class="eyebrow">05 / {{ lang() === 'fr' ? 'CERTIFICATS' : 'CERTIFICATES' }}</span>
+        <h2 class="section-title">{{ lang() === 'fr' ? 'Certifications Officielles' : 'Official Certifications' }}</h2>
     </div>
 
     <div class="certs-list">
@@ -322,11 +322,12 @@
 <section id="contact" class="contact">
     <div class="contact__container">
         <span class="eyebrow">06 / CONTACT</span>
-        <h2 class="section-title">Travaillons ensemble</h2>
+        <h2 class="section-title">{{ lang() === 'fr' ? 'Travaillons ensemble' : 'Let\'s Work Together' }}</h2>
         <p class="contact__sub">{{ text().contactSub }}</p>
 
         <div class="contact__links">
-            <a class="btn btn--primary" href="mailto:aitoulahyanfatima310@gmail.com">Envoyer un Email</a>
+            <a class="btn btn--primary" href="mailto:aitoulahyanfatima310@gmail.com">{{ lang() === 'fr' ? 'Envoyer un Email' : 'Send an Email' }}</a>
+            <a class="btn btn--secondary" href="tel:+212721228745">📞 07 21 22 87 45</a>
             <a class="btn btn--secondary" href="https://github.com/fatima-aitoulahyan" target="_blank" rel="noopener">GitHub</a>
             <a class="btn btn--secondary" href="https://www.linkedin.com/in/fatima-aitoulahyan-2038a32ab" target="_blank" rel="noopener">LinkedIn</a>
         </div>
@@ -336,6 +337,6 @@
 <footer class="footer">
     <div class="footer__content">
         <span>AITOULAHYAN — {{ text().role }}</span>
-        <span>© 2026 Tous droits réservés.</span>
+        <span>© 2026 {{ lang() === 'fr' ? 'Tous droits réservés.' : 'All rights reserved.' }}</span>
     </div>
 </footer>
