@@ -1,348 +1,438 @@
-<header class="topbar animate-fade-down">
-    <div class="topbar__brand">
-        <span class="topbar__dot"></span>
-        <span class="topbar__id">AITOULAHYAN.DEV</span>
-    </div>
-    <div class="topbar__actions">
-        <!-- Bouton Menu Hamburger pour mobile -->
-        <button class="mobile-menu-btn" (click)="toggleMobileMenu()" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
-        <nav class="topbar__nav" [class.is-open]="isMobileMenuOpen">
-            <a href="#about" (click)="closeMobileMenu()">{{ lang() === 'fr' ? 'Bio' : 'About' }}</a>
-            <a href="#projects" (click)="closeMobileMenu()">{{ lang() === 'fr' ? 'Projets' : 'Projects' }}</a>
-            <a href="#skills" (click)="closeMobileMenu()">{{ lang() === 'fr' ? 'Compétences' : 'Skills' }}</a>
-            <a href="#education" (click)="closeMobileMenu()">{{ lang() === 'fr' ? 'Formation' : 'Education' }}</a>
-            <a href="#certifications" (click)="closeMobileMenu()">{{ lang() === 'fr' ? 'Certificats' : 'Certificates' }}</a>
-            <a href="#contact" (click)="closeMobileMenu()">Contact</a>
-        </nav>
-
-        <!-- Bouton de téléchargement du CV dans la Topbar -->
-        <a href="assets/cv.pdf" download="Fatima_Aitoulahyan_CV.pdf" class="btn btn--resume-top">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            <span>CV</span>
+<div class="portfolio-container">
+    <!-- Topbar -->
+    <header class="topbar">
+        <a href="#" class="topbar__brand">
+            <span class="topbar__dot"></span>
+            Fatima Aitoulahyan
         </a>
-
-        <button class="lang-toggle" (click)="toggleLang()">
-            {{ lang() === 'fr' ? 'EN' : 'FR' }}
-        </button>
-    </div>
-</header>
-
-<!-- HERO -->
-<section class="hero animate-fade-in">
-    <div class="hero__content">
-        <div class="hero__badge animate-slide-up">
-            <span class="pulse-dot"></span> Software Engineering Student | Cloud & AI
+        <div class="topbar__actions">
+            <nav class="topbar__nav" [class.is-open]="mobileMenuOpen">
+                <a href="javascript:void(0)" (click)="scrollToSection('about')">About</a>
+                <a href="javascript:void(0)" (click)="scrollToSection('projects')">Projects</a>
+                <a href="javascript:void(0)" (click)="scrollToSection('tech-stack')">Skills</a>
+                <a href="javascript:void(0)" (click)="scrollToSection('education')">Education</a>
+                <a href="javascript:void(0)" (click)="scrollToSection('certifications')">Certifications</a>
+                <a href="javascript:void(0)" (click)="scrollToSection('contact')">Contact</a>
+            </nav>
+            <button class="lang-toggle" (click)="toggleLanguage()">
+                {{ currentLang === 'en' ? 'FR' : 'EN' }}
+            </button>
+            <button class="mobile-menu-btn" (click)="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <h1 class="hero__title animate-slide-up">Fatima AITOULAHYAN</h1>
-        <p class="hero__role animate-slide-up">{{ text().role }}</p>
-        <p class="hero__line animate-slide-up">{{ text().heroLine }}</p>
+    </header>
 
-        <div class="hero__cta animate-slide-up">
-            <a class="btn btn--primary" href="#projects">{{ text().projectsTitle }}</a>
-            <a class="btn btn--secondary btn--cv-download" href="assets/cv.pdf" download="Fatima_Aitoulahyan_CV.pdf">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                <span>{{ lang() === 'fr' ? 'Télécharger CV' : 'Download CV' }}</span>
-            </a>
-            <a class="btn btn--outline" href="#contact">{{ text().contactTitle }}</a>
-        </div>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero__content animate-fade-down">
 
-    <div class="hero__visual animate-fade-in">
-        <div class="code-card">
-            <div class="code-card__header">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
-                <span class="code-card__title">stack.config.ts</span>
+            <h1 class="hero__title">
+                {{ currentLang === 'en' ? "Hello, I'm" : "Bonjour, je suis" }}
+                <span class="hero__title-accent">Fatima AITOULAHYAN</span>,
+                {{ currentLang === 'en' ? 'a Software & AI Engineer' : 'ingénieure logicielle & IA' }}
+            </h1>
+            <p class="hero__line">{{ t.heroSubtitle }}</p>
+            <div class="hero__cta">
+                <a href="#projects" class="btn btn--primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    {{ t.viewProjects }}
+                </a>
+
+                <a href="assets/CV_AITOULAHYAN_Fatima_PFE_2027.pdf" download class="btn btn--secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    {{ currentLang === 'en' ? 'Download CV' : 'Télécharger CV' }}
+                </a>
             </div>
-            <pre><code><span class="keyword">const</span> <span class="variable">profile</span> = &#123;
-  <span class="property">name</span>: <span class="string">'Fatima Aitoulahyan'</span>,
-  <span class="property">focus</span>: [<span class="string">'Cloud & AI'</span>, <span class="string">'Spring Boot'</span>, <span class="string">'TensorFlow'</span>],
-  <span class="property">status</span>: <span class="string">'Seeking PFE Internship'</span>&#125;;</code></pre>
         </div>
-    </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="about">
-    <div class="section-header">
-        <span class="eyebrow">01 / {{ lang() === 'fr' ? 'À PROPOS' : 'ABOUT' }}</span>
-        <h2 class="section-title">{{ lang() === 'fr' ? 'Ingénierie, Cloud & IA' : 'Engineering, Cloud & AI' }}</h2>
-    </div>
-    <p class="about__text">{{ text().about }}</p>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="projects">
-    <div class="section-header">
-        <div class="header-badge">
-            <span class="pulse-dot"></span>
-            <span>{{ lang() === 'fr' ? 'Réalisations Récentes' : 'Recent Works' }}</span>
-        </div>
-        <span class="eyebrow">02 / PORTFOLIO</span>
-        <h2 class="section-title">{{ text().projectsTitle }}</h2>
-        <p class="section-subtitle">{{ lang() === 'fr' ? 'Découvrez une sélection de mes projets les plus impactants, alliant performance et architecture moderne.' : 'Discover a selection of my most impactful projects, combining performance and modern architecture.' }}</p>
-    </div>
-
-    <div class="projects__grid">
-        <article class="project-card" *ngFor="let p of projects">
-            <div class="project-card__media">
-                <iframe *ngIf="p.videoUrl"
-                        class="project-card__video"
-                        [src]="getSafeVideoUrl(p.videoUrl)"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen
-                        frameborder="0">
-                </iframe>
-
-                <ng-container *ngIf="!p.videoUrl && p.images && p.images.length > 0">
-                    <img [src]="p.images[p.currentImageIndex || 0]"
-                         [alt]="p.title"
-                         class="project-card__img clickable-image"
-                         (click)="openImageModal(p.images[p.currentImageIndex || 0])" />
-
-                    <button class="gallery-btn prev" (click)="prevImage(p, $event)" *ngIf="p.images.length > 1">&#10094;</button>
-                    <button class="gallery-btn next" (click)="nextImage(p, $event)" *ngIf="p.images.length > 1">&#10095;</button>
-
-                    <span class="image-counter" *ngIf="p.images.length > 1">
-                        {{ (p.currentImageIndex || 0) + 1 }} / {{ p.images.length }}
-                    </span>
-                </ng-container>
-
-                <div class="project-card__overlay-badge" *ngIf="p.status">
-                    <span class="status-dot"></span>
-                    {{ p.status[lang()] }}
+        <div class="hero__visual animate-zoom-in">
+            <div class="code-card">
+                <div class="code-card__header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="code-card__title">fatima.config.ts</span>
                 </div>
+                <pre><code><span class="keyword">const</span> <span class="variable">developer</span> = &#123;
+  <span class="property">name</span>: <span class="string">"Fatima Aitoulahyan"</span>,
+  <span class="property">program</span>: <span class="string">"GLSID at ENSET Mohammedia"</span>,
+  <span class="property">focus</span>: [<span class="string">"Full-Stack"</span>, <span class="string">"AI & Computer Vision"</span>, <span class="string">"Distributed Systems"</span>],
+  <span class="property">status</span>: <span class="string">"Seeking PFE Internship 2027"</span>,
+  <span class="property">coffeePerDay</span>: <span class="string">"Infinity"</span>
+&#125;;</code></pre>
+            </div>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="section-container center-aligned">
+            <div class="section-header">
+                <span class="eyebrow">{{ t.aboutEyebrow }}</span>
+                <h2 class="section-title">{{ t.aboutTitle }}</h2>
+            </div>
+            <p class="about__text" [innerHTML]="t.aboutText"></p>
+        </div>
+    </section>
+    <section id="experience" class="experiences">
+        <div class="section-container">
+            <div class="section-header center-aligned">
+                <span class="eyebrow">{{ currentLang === 'fr' ? 'Parcours Professionnel' : 'Professional Journey' }}</span>
+                <h2 class="section-title">{{ currentLang === 'fr' ? 'Expériences' : 'Experience' }}</h2>
+                <p class="section-subtitle">{{ currentLang === 'fr' ? 'Mon parcours à travers des stages et projets à fort impact technique.' : 'My journey through internships and high-impact technical projects.' }}</p>
             </div>
 
-            <div class="project-card__body">
+            <div class="experience-timeline">
+                <div *ngFor="let exp of experiences; let i = index" class="exp-card animate-on-scroll">
+                    <div class="exp-card__indicator">
+                        <span class="pulse-dot"></span>
+                    </div>
 
-                <h3 class="project-card__title">{{ p.title }}</h3>
-                <p class="project-card__tagline">{{ p.tagline[lang()] }}</p>
+                    <div class="exp-card__content">
+                        <div class="exp-card__header">
+                            <div class="exp-card__title-group">
+                                <span class="exp-card__company">{{ exp.company }}</span>
+                                <h3 class="exp-card__role">{{ exp.role[currentLang] }}</h3>
+                            </div>
+                            <span class="exp-card__period">{{ exp.period[currentLang] }}</span>
+                        </div>
 
-                <div class="project-card__stack">
-                    <span class="stack-label">{{ lang() === 'fr' ? 'Technologies :' : 'Technologies:' }}</span>
-                    <div class="chips">
-                        <span class="chip" *ngFor="let s of p.stack">
-                            <span class="chip-dot"></span>{{ s }}
-                        </span>
+                        <div class="exp-card__location">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            {{ exp.location[currentLang] }}
+                        </div>
+
+                        <ul class="exp-card__tasks">
+                            <li *ngFor="let task of exp.description[currentLang]">
+                                <span class="task-bullet"></span>
+                                <span>{{ task }}</span>
+                            </li>
+                        </ul>
+
+                        <div class="exp-card__stack">
+                            <span *ngFor="let techno of exp.stack" class="exp-tag">{{ techno }}</span>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="project-card__actions-row">
-                    <button class="btn-details" (click)="openProjectDetails(p)">
-                        {{ lang() === 'fr' ? 'Détails' : 'Details' }} <span>→</span>
-                    </button>
-                    <a *ngIf="p.githubUrl" [href]="p.githubUrl" target="_blank" rel="noopener" class="btn-github-icon" title="Voir sur GitHub">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                    </a>
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="section-container">
+            <div class="section-header center-aligned">
+                <div class="header-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    {{ t.projectsBadge }}
+                </div>
+                <h2 class="section-title">{{ t.projectsTitle }}</h2>
+                <p class="section-subtitle">{{ t.projectsSubtitle }}</p>
+            </div>
+
+            <div class="projects__grid">
+                <div *ngFor="let project of projects" class="project-card">
+                    <div class="project-card__media">
+                        <ng-container *ngIf="project.video; else imgBlock">
+                            <iframe class="project-card__video" [src]="getSafeVideoUrl(project.video)" allowfullscreen></iframe>
+                        </ng-container>
+                        <ng-template #imgBlock>
+                            <ng-container *ngIf="project.images && project.images.length > 0; else defaultImg">
+                                <img [src]="project.images[project.activeImageIndex || 0]" [alt]="project.title" class="project-card__img clickable-image" (click)="openLightbox(project.images[project.activeImageIndex || 0])" />
+                                <button *ngIf="project.images.length > 1" class="gallery-btn prev" (click)="prevImage(project)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                </button>
+                                <button *ngIf="project.images.length > 1" class="gallery-btn next" (click)="nextImage(project)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </button>
+                                <span *ngIf="project.images.length > 1" class="image-counter">{{ (project.activeImageIndex || 0) + 1 }} / {{ project.images.length }}</span>
+                            </ng-container>
+                            <ng-template #defaultImg>
+                                <div style="width:100%; height:100%; background: #0f172a; display:flex; align-items:center; justify-content:center; color: #64748b; font-family:'JetBrains Mono', monospace; font-size: 0.8rem;">[ {{ project.id }} Preview ]</div>
+                            </ng-template>
+                        </ng-template>
+                        <div class="project-card__overlay-badge">
+                            <span class="status-dot"></span>
+                            {{ project.date }}
+                        </div>
+                    </div>
+
+                    <div class="project-card__body">
+                        <div class="project-card__meta-top">
+                            <span class="project-card__id">{{ project.id }}</span>
+                            <span class="project-card__location">{{ project.context[currentLang] }}</span>
+                        </div>
+                        <h3 class="project-card__title">{{ project.title }}</h3>
+                        <p class="project-card__tagline">{{ project.tagline[currentLang] }}</p>
+
+                        <div class="project-card__stack">
+                            <span class="stack-label">Tech Stack</span>
+                            <div class="chips">
+                <span *ngFor="let tech of project.stack" class="chip">
+                  <span class="chip-dot"></span>
+                    {{ tech }}
+                </span>
+                            </div>
+
+                            <div class="project-card__actions-row">
+                                <button class="btn-details" (click)="openModal(project)">
+                                    <span>{{ t.exploreProject }}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </button>
+                                <a *ngIf="project.github" [href]="project.github" target="_blank" class="btn-github-icon" aria-label="GitHub Repository">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </article>
-    </div>
-</section>
+        </div>
+    </section>
 
-<!-- MODAL / FICHE DÉTAILLÉE DU PROJET -->
-<div class="modal-overlay" *ngIf="selectedProject" (click)="closeProjectDetails()">
-    <div class="modal-content animate-zoom-in" (click)="$event.stopPropagation()">
-        <header class="modal-header">
-            <div class="modal-meta-top">
-                <span class="modal-id">{{ selectedProject.id }}</span>
-                <div class="modal-header-actions">
-                    <a *ngIf="selectedProject.githubUrl" [href]="selectedProject.githubUrl" target="_blank" rel="noopener" class="modal-github-link">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                        <span>{{ lang() === 'fr' ? 'Code Source GitHub' : 'GitHub Source Code' }}</span>
-                    </a>
+    <section id="tech-stack" class="tech-stack">
+        <div class="section-container center-aligned">
+            <span class="eyebrow">{{ t.skillsEyebrow }}</span>
+            <h2 class="section-title">{{ t.skillsTitle }}</h2>
+        </div>
+
+        <div class="marquee-container">
+            <div class="marquee-track track-left">
+                <div *ngFor="let tech of row1List" class="tech-card">
+                    <div class="tech-icon-wrapper" [style.background-color]="tech.bgColor">
+                        <img *ngIf="tech.iconUrl; else emojiTpl1" [src]="tech.iconUrl" [alt]="tech.name" class="tech-logo-img">
+                        <ng-template #emojiTpl1>
+                            <span class="tech-emoji">{{ tech.icon }}</span>
+                        </ng-template>
+                    </div>
+                    <div class="tech-info">
+                        <h4 class="tech-name">{{ tech.name }}</h4>
+                        <span class="tech-category">{{ tech.category }}</span>
+                    </div>
+                </div>
+                <div *ngFor="let tech of row1List" class="tech-card">
+                    <div class="tech-icon-wrapper" [style.background-color]="tech.bgColor">
+                        <img *ngIf="tech.iconUrl; else emojiTpl1_dup" [src]="tech.iconUrl" [alt]="tech.name" class="tech-logo-img">
+                        <ng-template #emojiTpl1_dup>
+                            <span class="tech-emoji">{{ tech.icon }}</span>
+                        </ng-template>
+                    </div>
+                    <div class="tech-info">
+                        <h4 class="tech-name">{{ tech.name }}</h4>
+                        <span class="tech-category">{{ tech.category }}</span>
+                    </div>
                 </div>
             </div>
-            <h2 class="modal-title">{{ selectedProject.title }}</h2>
-            <button class="modal-close-btn" (click)="closeProjectDetails()">✕</button>
-        </header>
+        </div>
 
-        <div class="modal-body-scroll">
-            <div class="modal-media-full" *ngIf="selectedProject.videoUrl">
-                <iframe class="modal-video"
-                        [src]="getSafeVideoUrl(selectedProject.videoUrl)"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen
-                        frameborder="0">
-                </iframe>
-            </div>
-
-            <div class="modal-gallery" *ngIf="selectedProject.images && selectedProject.images.length > 0">
-                <div class="modal-gallery__grid">
-                    <img *ngFor="let img of selectedProject.images; let i = index"
-                         [src]="img"
-                         [alt]="selectedProject.title + ' - capture ' + (i + 1)"
-                         class="modal-gallery__item clickable-image"
-                         (click)="openImageModal(img)" />
+        <div class="marquee-container" style="margin-top: 1.5rem;">
+            <div class="marquee-track track-right">
+                <div *ngFor="let tech of row2List" class="tech-card">
+                    <div class="tech-icon-wrapper" [style.background-color]="tech.bgColor">
+                        <img *ngIf="tech.iconUrl; else emojiTpl2" [src]="tech.iconUrl" [alt]="tech.name" class="tech-logo-img">
+                        <ng-template #emojiTpl2>
+                            <span class="tech-emoji">{{ tech.icon }}</span>
+                        </ng-template>
+                    </div>
+                    <div class="tech-info">
+                        <h4 class="tech-name">{{ tech.name }}</h4>
+                        <span class="tech-category">{{ tech.category }}</span>
+                    </div>
+                </div>
+                <div *ngFor="let tech of row2List" class="tech-card">
+                    <div class="tech-icon-wrapper" [style.background-color]="tech.bgColor">
+                        <img *ngIf="tech.iconUrl; else emojiTpl2_dup" [src]="tech.iconUrl" [alt]="tech.name" class="tech-logo-img">
+                        <ng-template #emojiTpl2_dup>
+                            <span class="tech-emoji">{{ tech.icon }}</span>
+                        </ng-template>
+                    </div>
+                    <div class="tech-info">
+                        <h4 class="tech-name">{{ tech.name }}</h4>
+                        <span class="tech-category">{{ tech.category }}</span>
+                    </div>
                 </div>
             </div>
-
-            <div class="modal-section">
-                <h4 class="modal-section-title">{{ lang() === 'fr' ? 'Contexte & Défi' : 'Context & Challenge' }}</h4>
-                <p class="modal-text description-block"><strong>{{ lang() === 'fr' ? 'Problématique :' : 'Problem:' }}</strong> {{ selectedProject.problem[lang()] }}</p>
-                <p class="modal-text description-block" *ngIf="selectedProject.challenge"><strong>{{ lang() === 'fr' ? 'Défi Technique :' : 'Technical Challenge:' }}</strong> {{ selectedProject.challenge[lang()] }}</p>
+        </div>
+    </section>
+    <!-- Education Section -->
+    <section id="education" class="education">
+        <div class="section-container">
+            <div class="section-header center-aligned">
+                <span class="eyebrow">{{ t.eduEyebrow }}</span>
+                <h2 class="section-title">{{ t.eduTitle }}</h2>
             </div>
+            <div class="education__grid">
+                <div *ngFor="let edu of educationList" class="edu-card">
+                    <div class="edu-card__header">
+                        <div class="edu-card__institution-info">
+                            <span class="edu-card__university">{{ edu.institution }}</span>
+                            <span class="edu-card__badge">{{ edu.location[currentLang] }}</span>
+                        </div>
+                        <span class="edu-card__school-name">{{ edu.school }}</span>
+                    </div>
+                    <h3 class="edu-card__degree">{{ edu.degree[currentLang] }}</h3>
+                    <div class="edu-card__field">{{ edu.field[currentLang] }}</div>
 
-            <div class="modal-section stack-section">
-                <h4 class="modal-section-title">{{ lang() === 'fr' ? 'Stack Technique Utilisé' : 'Technical Stack Used' }}</h4>
-                <div class="chips large-chips">
-                    <span class="chip" *ngFor="let s of selectedProject.stack">
-                        <span class="chip-dot"></span>{{ s }}
+                    <div class="edu-card__meta">
+                        <div class="edu-card__date">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline; vertical-align:-2px; margin-right:4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            {{ edu.period }}
+                        </div>
+                    </div>
+
+                    <!-- Section des compétences acquises -->
+                    <div class="edu-card__skills" *ngIf="edu.skills && edu.skills[currentLang]">
+                    <span *ngFor="let skill of edu.skills[currentLang]" class="edu-card__skill-tag">
+                        {{ skill }}
                     </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications">
+        <div class="section-container">
+            <div class="section-header center-aligned">
+                <span class="eyebrow">{{ t.certEyebrow }}</span>
+                <h2 class="section-title">{{ t.certTitle }}</h2>
+            </div>
+            <div class="certs-list center-aligned-container">
+                <a *ngFor="let cert of certifications"
+                   [href]="cert.link || 'javascript:void(0)'"
+                   [target]="cert.link ? '_blank' : '_self'"
+                   class="cert-row"
+                   [class.has-link]="cert.link">
+                    <div>
+                        <div class="cert-row__title">
+                            {{ cert.title }}
+                            <svg *ngIf="cert.link" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline; margin-left: 6px; vertical-align: middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </div>
+                        <div class="cert-row__issuer">{{ cert.issuer }}</div>
+                    </div>
+                    <div class="cert-row__date">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline; vertical-align:-2px; margin-right:4px;"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                        {{ cert.date }}
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact__container">
+            <div class="section-header center-aligned">
+                <span class="eyebrow">{{ t.contactEyebrow }}</span>
+                <h2 class="section-title">{{ t.contactTitle }}</h2>
+            </div>
+            <p class="contact__sub">{{ t.contactSub }}</p>
+            <div class="contact__links">
+                <a href="mailto:aitoulahyanfatima310@gmail.com" class="btn btn--primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    Email Me
+                </a>
+
+                <button onclick="navigator.clipboard.writeText('aitoulahyanfatima310@gmail.com'); const btn = this; const span = btn.querySelector('.copy-text'); span.textContent = 'Copié !'; setTimeout(() => span.textContent = 'Copier l\'e-mail', 2000);" class="btn btn--secondary" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span class="copy-text">Copier l'e-mail</span>
+                </button>
+
+                <a href="https://www.linkedin.com/in/fatima-aitoulahyan-2038a32ab" target="_blank" class="btn btn--secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    LinkedIn
+                </a>
+
+                <a href="https://github.com/fatima-aitoulahyan" target="_blank" class="btn btn--secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__content">
+            <p>© 2026 Fatima Aitoulahyan. All rights reserved.</p>
+            <p>Built with Angular & Precision Engineering.</p>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div *ngIf="selectedProject" class="modal-overlay" (click)="closeModal()">
+        <div class="modal-content animate-zoom-in" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-meta-top">
+                    <span class="modal-id">{{ selectedProject.id }}</span>
+                    <a *ngIf="selectedProject.github" [href]="selectedProject.github" target="_blank" class="modal-github-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                        View Source
+                    </a>
+                </div>
+                <h2 class="modal-title">{{ selectedProject.title }}</h2>
+                <button class="modal-close-btn" (click)="closeModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+
+            <div class="modal-body-scroll">
+                <div *ngIf="selectedProject.video" class="modal-video">
+                    <iframe [src]="getSafeVideoUrl(selectedProject.video)" allowfullscreen></iframe>
+                </div>
+                <div *ngIf="selectedProject.images && selectedProject.images.length > 0" class="modal-media-full">
+                    <img [src]="selectedProject.images[0]" [alt]="selectedProject.title" class="clickable-image" (click)="openLightbox(selectedProject.images[0])" style="width:100%; height:100%; object-fit:cover;" />
+                </div>
+
+                <div>
+                    <h4 class="modal-section-title">{{ t.problemLabel }}</h4>
+                    <p class="modal-text">{{ selectedProject.problem ? selectedProject.problem[currentLang] : (selectedProject.longDescription || selectedProject.tagline)[currentLang] }}</p>
+                </div>
+
+                <div *ngIf="selectedProject.role">
+                    <h4 class="modal-section-title">Role</h4>
+                    <p class="modal-text">{{ selectedProject.role[currentLang] }}</p>
+                </div>
+
+                <div *ngIf="selectedProject.challenge">
+                    <h4 class="modal-section-title">{{ t.challengeLabel }}</h4>
+                    <p class="modal-text">{{ selectedProject.challenge[currentLang] }}</p>
+                </div>
+
+                <div *ngIf="selectedProject.result">
+                    <h4 class="modal-section-title">{{ t.resultLabel }}</h4>
+                    <p class="modal-text">{{ selectedProject.result[currentLang] }}</p>
+                </div>
+
+                <div *ngIf="selectedProject.accomplishments">
+                    <h4 class="modal-section-title">Accomplishments</h4>
+                    <ul class="modal-text">
+                        <li *ngFor="let item of selectedProject.accomplishments[currentLang]">{{ item }}</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="modal-section-title">Technologies Used</h4>
+                    <div class="chips">
+            <span *ngFor="let tech of selectedProject.stack" class="chip">
+              <span class="chip-dot"></span>
+                {{ tech }}
+            </span>
+                    </div>
                 </div>
             </div>
 
-            <div class="modal-section accomplishments-section" *ngIf="selectedProject.accomplishments">
-                <h4 class="modal-section-title">{{ lang() === 'fr' ? 'Principales Réalisations & Rôle' : 'Key Accomplishments & Role' }}</h4>
-                <p class="modal-role" *ngIf="selectedProject.role"><strong>{{ lang() === 'fr' ? 'Rôle :' : 'Role:' }}</strong> {{ selectedProject.role[lang()] }}</p>
-                <ul class="modal-bullets">
-                    <li *ngFor="let item of selectedProject.accomplishments[lang()]">{{ item }}</li>
-                </ul>
+            <div class="modal-footer">
+                <span>{{ selectedProject.context[currentLang] }} • {{ selectedProject.date }}</span>
             </div>
         </div>
+    </div>
 
-        <footer class="modal-footer">
-            <span class="modal-duration" *ngIf="selectedProject.status">⏱️ {{ selectedProject.status[lang()] }}</span>
-        </footer>
+    <!-- Lightbox Modal -->
+    <div *ngIf="lightboxImage" class="image-modal-overlay" (click)="closeLightbox()">
+        <button class="image-modal-close" (click)="closeLightbox()">&times;</button>
+        <div class="image-modal-content" (click)="$event.stopPropagation()">
+            <img [src]="lightboxImage" alt="Enlarged view" />
+        </div>
     </div>
 </div>
-
-<!-- MODALE D'AGRANDISSEMENT D'IMAGE -->
-<div class="image-modal-overlay" *ngIf="selectedImage" (click)="closeImageModal()">
-    <div class="image-modal-content animate-zoom-in" (click)="$event.stopPropagation()">
-        <button class="image-modal-close" (click)="closeImageModal()">&times;</button>
-        <img [src]="selectedImage" alt="Aperçu agrandi" />
-    </div>
-</div>
-
-<!-- SKILLS -->
-<section id="skills" class="skills">
-    <div class="section-header">
-        <span class="eyebrow">03 / EXPERTISE</span>
-        <h2 class="section-title">{{ text().skillsTitle }}</h2>
-    </div>
-
-    <div class="skills__grid">
-        <div class="skills__group">
-            <h3>Cloud & DevOps</h3>
-            <div class="chips">
-                <span class="chip" *ngFor="let s of skills.cloud">{{ s }}</span>
-            </div>
-        </div>
-        <div class="skills__group">
-            <h3>AI & Data Science</h3>
-            <div class="chips">
-                <span class="chip" *ngFor="let s of skills.ai">{{ s }}</span>
-            </div>
-        </div>
-        <div class="skills__group">
-            <h3>Backend</h3>
-            <div class="chips">
-                <span class="chip" *ngFor="let s of skills.backend">{{ s }}</span>
-            </div>
-        </div>
-        <div class="skills__group">
-            <h3>{{ lang() === 'fr' ? 'Bases de Données' : 'Databases' }}</h3>
-            <div class="chips">
-                <span class="chip" *ngFor="let s of skills.databases">{{ s }}</span>
-            </div>
-        </div>
-        <div class="skills__group">
-            <h3>Frontend & Mobile</h3>
-            <div class="chips">
-                <span class="chip" *ngFor="let s of skills.frontend">{{ s }}</span>
-                <span class="chip" *ngFor="let s of skills.mobile">{{ s }}</span>
-            </div>
-        </div>
-        <div class="skills__group">
-            <h3>{{ lang() === 'fr' ? 'Outils & Méthodes' : 'Tools & Methods' }}</h3>
-            <div class="chips">
-                <span class="chip" *ngFor="let s of skills.tools">{{ s }}</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- EDUCATION -->
-<section id="education" class="education">
-    <div class="section-header">
-        <span class="eyebrow">04 / {{ lang() === 'fr' ? 'FORMATION' : 'EDUCATION' }}</span>
-        <h2 class="section-title">{{ lang() === 'fr' ? 'Parcours Académique' : 'Academic Background' }}</h2>
-    </div>
-
-    <div class="timeline">
-        <div class="timeline__item">
-            <span class="timeline__date">2024 — 2027</span>
-            <h3 class="timeline__title">{{ lang() === 'fr' ? 'Cycle d\'Ingénieur en Génie Logiciel et Systèmes Informatiques Distribués' : 'Software Engineering and Distributed Systems Engineering Cycle' }}</h3>
-            <span class="timeline__place">ENSET Mohammedia</span>
-        </div>
-        <div class="timeline__item">
-            <span class="timeline__date">2022 — 2024</span>
-            <h3 class="timeline__title">{{ lang() === 'fr' ? 'DEUG en Mathématiques et Informatique' : 'DEUG in Mathematics and Computer Science' }}</h3>
-            <span class="timeline__place">Université Ibn Zohr, Aït Melloul</span>
-        </div>
-        <div class="timeline__item">
-            <span class="timeline__date">2021 — 2022</span>
-            <h3 class="timeline__title">{{ lang() === 'fr' ? 'Baccalauréat Sciences Mathématiques B' : 'Mathematical Sciences B Baccalaureate' }}</h3>
-            <span class="timeline__place">Lycée Al Massira Al Khadra, Tiznit</span>
-        </div>
-    </div>
-</section>
-
-<!-- CERTIFICATES -->
-<section id="certifications" class="certifications">
-    <div class="section-header">
-        <span class="eyebrow">05 / {{ lang() === 'fr' ? 'CERTIFICATS' : 'CERTIFICATES' }}</span>
-        <h2 class="section-title">{{ lang() === 'fr' ? 'Certifications Officielles' : 'Official Certifications' }}</h2>
-    </div>
-
-    <div class="certs-list">
-        <a *ngFor="let cert of certifications"
-           [href]="cert.link || '#'"
-           [target]="cert.link ? '_blank' : '_self'"
-           rel="noopener"
-           class="cert-row"
-           [class.cert-row--disabled]="!cert.link">
-
-            <div class="cert-row__main">
-                <span class="cert-row__title">{{ cert.title }}</span>
-                <span class="cert-row__issuer">{{ cert.issuer }}</span>
-            </div>
-
-            <div class="cert-row__meta">
-                <span class="cert-row__date">{{ cert.date }}</span>
-                <span class="cert-row__action" *ngIf="cert.link">↗</span>
-            </div>
-        </a>
-    </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="contact">
-    <div class="contact__container">
-        <span class="eyebrow">06 / CONTACT</span>
-        <h2 class="section-title">{{ lang() === 'fr' ? 'Travaillons ensemble' : 'Let\'s Work Together' }}</h2>
-        <p class="contact__sub">{{ text().contactSub }}</p>
-
-        <div class="contact__links">
-            <a class="btn btn--primary" href="mailto:aitoulahyanfatima310@gmail.com">{{ lang() === 'fr' ? 'Envoyer un Email' : 'Send an Email' }}</a>
-            <a class="btn btn--secondary" href="tel:+212721228745">📞 07 21 22 87 45</a>
-            <a class="btn btn--secondary" href="https://github.com/fatima-aitoulahyan" target="_blank" rel="noopener">GitHub</a>
-            <a class="btn btn--secondary" href="https://www.linkedin.com/in/fatima-aitoulahyan-2038a32ab" target="_blank" rel="noopener">LinkedIn</a>
-        </div>
-    </div>
-</section>
-
-<footer class="footer">
-    <div class="footer__content">
-        <span>AITOULAHYAN — {{ text().role }}</span>
-        <span>© 2026 {{ lang() === 'fr' ? 'Tous droits réservés.' : 'All rights reserved.' }}</span>
-    </div>
-</footer>
